@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:study_flutter_13_totally03_lec_push/notification.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,12 +30,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    FlutterLocalNotification.init();
+    Future.delayed(
+      const Duration(seconds: 3),
+      FlutterLocalNotification.requestNotificationPermission(),
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Push Sample')),
-      body: const Center(
-        child: Column(
-          children: [],
+      body: Center(
+        child: TextButton(
+          onPressed: () => FlutterLocalNotification.showNotification(),
+          child: const Text("알림 보내기"),
         ),
       ),
     );
